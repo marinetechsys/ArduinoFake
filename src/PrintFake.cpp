@@ -125,3 +125,8 @@ size_t Print::println(const Printable& x)
 {
     return ArduinoFakeInstance(Print, this)->println(x);
 }
+
+size_t Print::printf(const char* fmt, ...)
+{
+    return ArduinoFakeInstance(Print, this)->printf(fmt);
+}

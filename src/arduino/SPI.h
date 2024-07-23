@@ -69,6 +69,8 @@
 #define SPI_AVR_EIMSK GIMSK
 #endif
 
+typedef uint8_t BitOrder;
+
 class SPISettings {
  private:
   uint32_t clock;

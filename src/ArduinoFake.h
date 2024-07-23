@@ -14,14 +14,14 @@
 
 #include "arduino/Arduino.h"
 
-#include "Function.h"
-#include "Stream.h"
-#include "Serial.h"
-#include "Wire.h"
-#include "Client.h"
-#include "Print.h"
-#include "SPI.h"
-#include "EEPROM.h"
+#include "FunctionFake.h"
+#include "StreamFake.h"
+#include "SerialFake.h"
+#include "WireFake.h"
+#include "ClientFake.h"
+#include "PrintFake.h"
+#include "SPIFake.h"
+#include "EEPROMFake.h"
 
 #define ArduinoFake(mock) _ArduinoFakeGet##mock()
 
@@ -38,7 +38,11 @@
     getArduinoFakeContext()->Mocks->mock
 
 #define _ArduinoFakeGetFunction() _ArduinoFakeGetMock(Function)
+#if defined(USBCON)
 #define _ArduinoFakeGetSerial() _ArduinoFakeGetMock(Serial)
+#else
+#define _ArduinoFakeGetHardwareSerial() _ArduinoFakeGetMock(Serial)
+#endif
 #define _ArduinoFakeGetWire() _ArduinoFakeGetMock(Wire)
 #define _ArduinoFakeGetSPI() _ArduinoFakeGetMock(SPI)
 #define _ArduinoFakeGetEEPROM() _ArduinoFakeGetMock(EEPROM)
@@ -111,7 +115,11 @@ class ArduinoFakeContext
         _ArduinoFakeInstanceGetter2(Print, Print)
         _ArduinoFakeInstanceGetter2(Client, Client)
         _ArduinoFakeInstanceGetter2(Stream, Stream)
+#if defined(USBCON)
         _ArduinoFakeInstanceGetter2(Serial, Serial_)
+#else
+        _ArduinoFakeInstanceGetter2(Serial, HardwareSerial)
+#endif
         _ArduinoFakeInstanceGetter2(Wire, TwoWire)
         _ArduinoFakeInstanceGetter2(SPI, SPIClass)
         _ArduinoFakeInstanceGetter2(EEPROM, EEPROMClass)
@@ -133,7 +141,6 @@ class ArduinoFakeContext
             this->Mocks->Print.Reset();
             this->Mocks->SPI.Reset();
             this->Mocks->EEPROM.Reset();
-
             Mapping[&::Serial] = this->Serial();
             Mapping[&::Wire] = this->Wire();
             Mapping[&::SPI] = this->SPI();
@@ -142,6 +149,10 @@ class ArduinoFakeContext
 };
 
 ArduinoFakeContext* getArduinoFakeContext();
+
+#define Serial1 Serial
+#define Serial2 Serial
+#define Serial3 Serial
 
 #endif //_ARDUINO_FAKE_H_
 // clang-format on

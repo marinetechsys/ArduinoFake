@@ -1,7 +1,6 @@
 #ifndef _STREAMFAKE_H_
 #define _STREAMFAKE_H_
 
-#include "ArduinoFake.h"
 #include "PrintFake.h"
 #include "arduino/Stream.h"
 

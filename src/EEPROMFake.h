@@ -1,7 +1,6 @@
 #ifndef _EEPROMFAKE_H_
 #define _EEPROMFAKE_H_
 
-#include "ArduinoFake.h"
 #include "arduino/EEPROM.h"
 
 struct EEPROMFake {

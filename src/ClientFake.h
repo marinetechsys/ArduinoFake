@@ -1,7 +1,6 @@
 #ifndef _CLIENTFAKE_H_
 #define _CLIENTFAKE_H_
 
-#include "ArduinoFake.h"
 #include "StreamFake.h"
 #include "arduino/Client.h"
 

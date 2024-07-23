@@ -93,12 +93,12 @@ typedef uint8_t rx_buffer_index_t;
 class HardwareSerial : public Stream
 {
   protected:
-    volatile uint8_t * const _ubrrh;
-    volatile uint8_t * const _ubrrl;
-    volatile uint8_t * const _ucsra;
-    volatile uint8_t * const _ucsrb;
-    volatile uint8_t * const _ucsrc;
-    volatile uint8_t * const _udr;
+    volatile uint8_t * const _ubrrh = nullptr;
+    volatile uint8_t * const _ubrrl = nullptr;
+    volatile uint8_t * const _ucsra = nullptr;
+    volatile uint8_t * const _ucsrb = nullptr;
+    volatile uint8_t * const _ucsrc = nullptr;
+    volatile uint8_t * const _udr = nullptr;
     // Has any byte been written to the UART since begin()
     bool _written;
 
@@ -114,11 +114,12 @@ class HardwareSerial : public Stream
     unsigned char _tx_buffer[SERIAL_TX_BUFFER_SIZE];
 
   public:
+    HardwareSerial(){}
     inline HardwareSerial(
       volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
       volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
       volatile uint8_t *ucsrc, volatile uint8_t *udr);
-    void begin(unsigned long baud) { begin(baud, SERIAL_8N1); }
+    void begin(unsigned long baud);
     void begin(unsigned long, uint8_t);
     void end();
     virtual int available(void);
@@ -131,6 +132,7 @@ class HardwareSerial : public Stream
     inline size_t write(long n) { return write((uint8_t)n); }
     inline size_t write(unsigned int n) { return write((uint8_t)n); }
     inline size_t write(int n) { return write((uint8_t)n); }
+    virtual size_t write(const uint8_t*, size_t);
     using Print::write; // pull in write(str) and write(buf, size) from Print
     operator bool() { return true; }
 

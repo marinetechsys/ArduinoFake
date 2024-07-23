@@ -89,65 +89,59 @@ int32_t Serial_::readBreak()
     return ArduinoFakeInstance(Serial, this)->readBreak();
 }
 
-void Serial_::printf(const char* fmt, ...)
-{
-    va_list argv;
-    va_start(argv, fmt);
+Serial_ Serial = SerialFakeProxy(ArduinoFakeInstance(Serial));
+#else // USBCON
 
-    for (int i = 0; fmt[i] != '\0'; i++) {
-        if (fmt[i] == '%') {
-            // Look for specification of number of decimal places
-            int places = 2;
-            if (fmt[i+1] == '.') i++;  // alw1746: Allows %.4f precision like in stdio printf (%4f will still work).
-            if (fmt[i+1] >= '0' && fmt[i+1] <= '9') {
-                places = fmt[i+1] - '0';
-                i++;
-            }
-            
-            switch (fmt[++i]) {
-                case 'B':
-                    serial.print("0b"); // Fall through intended
-                case 'b':
-                    serial.print(va_arg(argv, int), BIN);
-                    break;
-                case 'c': 
-                    serial.print((char) va_arg(argv, int));
-                    break;
-                case 'd': 
-                case 'i':
-                    serial.print(va_arg(argv, int), DEC);
-                    break;
-                case 'f': 
-                    serial.print(va_arg(argv, double), places);
-                    break;
-                case 'l': 
-                    serial.print(va_arg(argv, long), DEC);
-                    break;
-                case 'o':
-                    serial.print(va_arg(argv, int) == 0 ? "off" : "on");
-                    break;
-                case 's': 
-                    serial.print(va_arg(argv, const char*));
-                    break;
-                case 'X':
-                    serial.print("0x"); // Fall through intended
-                case 'x':
-                    serial.print(va_arg(argv, int), HEX);
-                    break;
-                case '%': 
-                    serial.print(fmt[i]);
-                    break;
-                default:
-                    serial.print("?");
-                    break;
-            }
-        } else {
-            serial.print(fmt[i]);
-        }
-    }
-    va_end(argv);
+void HardwareSerial::begin(unsigned long baud_count)
+{
+    ArduinoFakeInstance(Serial, this)->begin(baud_count);
 }
 
-Serial_ Serial = SerialFakeProxy(ArduinoFakeInstance(Serial));
+void HardwareSerial::begin(unsigned long baud_count, byte config)
+{
+    ArduinoFakeInstance(Serial, this)->begin(baud_count, config);
+}
+
+void HardwareSerial::end(void)
+{
+    ArduinoFakeInstance(Serial, this)->end();
+}
+
+int HardwareSerial::available(void)
+{
+    return ArduinoFakeInstance(Serial, this)->available();
+}
+
+int HardwareSerial::peek(void)
+{
+    return ArduinoFakeInstance(Serial, this)->peek();
+}
+
+int HardwareSerial::read(void)
+{
+    return ArduinoFakeInstance(Serial, this)->read();
+}
+
+int HardwareSerial::availableForWrite(void)
+{
+    return ArduinoFakeInstance(Serial, this)->availableForWrite();
+}
+
+void HardwareSerial::flush(void)
+{
+    ArduinoFakeInstance(Serial, this)->flush();
+}
+
+size_t HardwareSerial::write(uint8_t c)
+{
+    return ArduinoFakeInstance(Serial, this)->write(c);
+}
+
+size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
+{
+    return ArduinoFakeInstance(Serial, this)->write(buffer, size);
+}
+
+HardwareSerial Serial = SerialFakeProxy(ArduinoFakeInstance(Serial));
 
 #endif // USBCON

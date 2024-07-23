@@ -26,6 +26,16 @@ void analogWrite(uint8_t pin, int val)
     ArduinoFakeInstance(Function)->analogWrite(pin, val);
 }
 
+void analogWriteFrequency(uint8_t pin, int val)
+{
+
+}
+
+void analogWriteResolution(uint8_t pin, int val)
+{
+
+}
+
 void analogReference(uint8_t mode)
 {
     ArduinoFakeInstance(Function)->analogReference(mode);

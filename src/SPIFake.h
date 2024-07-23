@@ -1,7 +1,6 @@
 #ifndef _SPIFAKE_H_
 #define _SPIFAKE_H_
 
-#include "ArduinoFake.h"
 #include "arduino/SPI.h"
 
 struct SPIFake {

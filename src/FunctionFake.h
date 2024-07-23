@@ -17,6 +17,8 @@ struct FunctionFake
     virtual void analogReference(uint8_t) = 0;
     virtual void analogReadResolution(uint8_t) = 0;
     virtual void analogWrite(uint8_t, int) = 0;
+    virtual void analogWriteFrequency(uint8_t, int) = 0;
+    virtual void analogWriteResolution(uint8_t, int) = 0;
 
     virtual unsigned long millis(void) = 0;
     virtual unsigned long micros(void) = 0;

@@ -1,7 +1,6 @@
 #ifndef _PRINTFAKE_H_
 #define _PRINTFAKE_H_
 
-#include "ArduinoFake.h"
 #include "arduino/Print.h"
 
 struct PrintFake
@@ -33,6 +32,7 @@ struct PrintFake
     virtual size_t println(double, int = 2) = 0;
     virtual size_t println(const Printable&) = 0;
     virtual size_t println(void) = 0;
+    virtual size_t printf(const char* fmt, ...) = 0;
 };
 
 class PrintFakeProxy : public Print
