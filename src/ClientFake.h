@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CLIENTFAKE_H_
+#define _CLIENTFAKE_H_
 
 #include "ArduinoFake.h"
 #include "StreamFake.h"
@@ -102,3 +103,5 @@ class ClientFakeProxy : public StreamFakeProxy, public Client
             return clientFake;
         }
 };
+
+#endif //_CLIENTFAKE_H_

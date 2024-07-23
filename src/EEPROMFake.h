@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _EEPROMFAKE_H_
+#define _EEPROMFAKE_H_
 
 #include "ArduinoFake.h"
 #include "arduino/EEPROM.h"
@@ -19,3 +20,5 @@ public:
 
   EEPROMFake *getEEPROMFake() { return eepromFake; }
 };
+
+#endif //_EEPROMFAKE_H_

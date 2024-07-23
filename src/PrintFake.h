@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _PRINTFAKE_H_
+#define _PRINTFAKE_H_
 
 #include "ArduinoFake.h"
 #include "arduino/Print.h"
@@ -60,3 +61,5 @@ class PrintFakeProxy : public Print
             return printFake;
         }
 };
+
+#endif //_PRINTFAKE_H_

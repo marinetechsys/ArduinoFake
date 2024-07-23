@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FUNCTIONFAKE_H_
+#define _FUNCTIONFAKE_H_
 
 #include "fakeit.hpp"
 
@@ -45,3 +46,5 @@ struct FunctionFake
 
     virtual void yield() = 0;
 };
+
+#endif // _FUNCTIONFAKE_H_

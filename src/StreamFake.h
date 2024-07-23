@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _STREAMFAKE_H_
+#define _STREAMFAKE_H_
 
 #include "ArduinoFake.h"
 #include "PrintFake.h"
@@ -79,3 +80,5 @@ class StreamFakeProxy : public Stream, public PrintFakeProxy
             return streamFake;
         }
 };
+
+#endif //_STREAMFAKE_H_

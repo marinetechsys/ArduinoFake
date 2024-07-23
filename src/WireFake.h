@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _WIREFAKE_H_
+#define _WIREFAKE_H_
+
 #include "ArduinoFake.h"
 #include "StreamFake.h"
 #include "arduino/Wire.h"
@@ -39,3 +41,5 @@ public:
 
   WireFake *getWireFake() { return wireFake; }
 };
+
+#endif // _WIREFAKE_H_

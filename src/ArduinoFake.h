@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ARDUINO_FAKE_H_
+#define _ARDUINO_FAKE_H_
 // clang-format off
 
 #if !defined(UBRRH) && !defined(UBRR0H) && !defined(USBCON)
@@ -142,4 +143,5 @@ class ArduinoFakeContext
 
 ArduinoFakeContext* getArduinoFakeContext();
 
+#endif //_ARDUINO_FAKE_H_
 // clang-format on
