@@ -125,7 +125,6 @@ typedef unsigned int word;
 #define bit(b) (1UL << (b))
 
 typedef bool boolean;
-typedef uint8_t byte;
 
 void init(void);
 void initVariant(void);
@@ -232,7 +231,7 @@ void loop(void);
 #endif
 
 uint16_t makeWord(uint16_t w);
-uint16_t makeWord(byte h, byte l);
+uint16_t makeWord(uint8_t h, uint8_t l);
 
 #define word(...) makeWord(__VA_ARGS__)
 

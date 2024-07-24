@@ -9,7 +9,7 @@ void Serial_::begin(unsigned long baud_count)
     ArduinoFakeInstance(Serial, this)->begin(baud_count);
 }
 
-void Serial_::begin(unsigned long baud_count, byte config)
+void Serial_::begin(unsigned long baud_count, uint8_t config)
 {
     ArduinoFakeInstance(Serial, this)->begin(baud_count, config);
 }
@@ -97,7 +97,7 @@ void HardwareSerial::begin(unsigned long baud_count)
     ArduinoFakeInstance(Serial, this)->begin(baud_count);
 }
 
-void HardwareSerial::begin(unsigned long baud_count, byte config)
+void HardwareSerial::begin(unsigned long baud_count, uint8_t config)
 {
     ArduinoFakeInstance(Serial, this)->begin(baud_count, config);
 }
