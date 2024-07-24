@@ -128,5 +128,6 @@ size_t Print::println(const Printable& x)
 
 size_t Print::printf(const char* fmt, ...)
 {
-    return ArduinoFakeInstance(Print, this)->printf(fmt);
+    // TODO: unsure how to mock this.
+    return 0;
 }
