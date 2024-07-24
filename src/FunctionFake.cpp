@@ -28,12 +28,12 @@ void analogWrite(uint8_t pin, int val)
 
 void analogWriteFrequency(uint8_t pin, int val)
 {
-
+    ArduinoFakeInstance(Function)->analogWriteFrequency(pin, val);
 }
 
 void analogWriteResolution(uint8_t pin, int val)
 {
-
+    ArduinoFakeInstance(Function)->analogWriteResolution(pin, val);
 }
 
 void analogReference(uint8_t mode)
@@ -93,11 +93,11 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
 	ArduinoFakeInstance(Function)->attachInterrupt(interruptNum, userFunc, mode);
 }
 
-void cli(void) {
+void cli() {
     ArduinoFakeInstance(Function)->cli();
 }
 
-void sei(void) {
+void sei() {
     ArduinoFakeInstance(Function)->sei();
 }
 

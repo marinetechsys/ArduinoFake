@@ -103,6 +103,14 @@ class ArduinoFakeContext
         ArduinoFakeMocks* Mocks = new ArduinoFakeMocks();
         std::unordered_map<void*, void*> Mapping;
 
+        // Mock default data.
+        SPISettings settings;
+        uint8_t data = 0x01;
+        uint8_t buffer[3] = {0x02, 0x03, 0x04};
+        uint8_t *ptr = buffer;
+        String str1 = String('X');
+        String str2 = String('Z');
+
         _ArduinoFakeInstanceGetter1(Print)
         _ArduinoFakeInstanceGetter1(Stream)
         _ArduinoFakeInstanceGetter1(Serial)
@@ -127,7 +135,10 @@ class ArduinoFakeContext
         ArduinoFakeContext()
         {
             this->reset();
+            this->setDefaults();
         }
+
+        void setDefaults();
 
         void reset(void)
         {
