@@ -3,6 +3,7 @@
 
 #include "StreamFake.h"
 #include "arduino/USBAPI.h"
+#include "arduino/HardwareSerial.h"
 
 #if defined(USBCON)
 
@@ -40,7 +41,7 @@ class SerialFakeProxy : public StreamFakeProxy, public Serial_
         SerialFake* serialFake;
 
     public:
-        SerialFakeProxy(SerialFake* fake) : StreamFakeProxy(fake)
+        SerialFakeProxy(uint8_t id, SerialFake* fake) : StreamFakeProxy(fake)
         {
             serialFake = fake;
         }
@@ -82,9 +83,10 @@ class SerialFakeProxy : public StreamFakeProxy, public HardwareSerial
 {
     private:
         SerialFake* serialFake;
+        uint8_t _id;
 
     public:
-        SerialFakeProxy(SerialFake* fake) : StreamFakeProxy(fake)
+        SerialFakeProxy(uint8_t id, SerialFake* fake) : _id(id), StreamFakeProxy(fake)
         {
             serialFake = fake;
         }
@@ -92,6 +94,11 @@ class SerialFakeProxy : public StreamFakeProxy, public HardwareSerial
         SerialFake* getSerialFake()
         {
             return serialFake;
+        }
+
+        uint8_t id() const
+        {
+            return _id;
         }
 };
 #endif

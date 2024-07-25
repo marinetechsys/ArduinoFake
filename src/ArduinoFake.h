@@ -60,6 +60,15 @@
         return this->Instances->mock; \
     }
 
+#define _ArduinoFakeInstanceGetter11(mock, mockid) \
+    mock##Fake* mockid() \
+    { \
+        if (!this->Instances->mockid){ \
+            this->Instances->mockid = &this->Mocks->mockid.get(); \
+        } \
+        return this->Instances->mockid; \
+    }
+
 #define _ArduinoFakeInstanceGetter2(name, clazz) \
     name##Fake* name(class clazz* instance) \
     { \
@@ -75,25 +84,43 @@
 struct ArduinoFakeMocks
 {
     fakeit::Mock<FunctionFake> Function;
-    fakeit::Mock<SerialFake> Serial;
     fakeit::Mock<WireFake> Wire;
     fakeit::Mock<StreamFake> Stream;
     fakeit::Mock<ClientFake> Client;
     fakeit::Mock<PrintFake> Print;
     fakeit::Mock<SPIFake> SPI;
     fakeit::Mock<EEPROMFake> EEPROM;
+    fakeit::Mock<SerialFake> Serial;
+    fakeit::Mock<SerialFake> Serial1;
+    fakeit::Mock<SerialFake> Serial2;
+    fakeit::Mock<SerialFake> Serial3;
+    fakeit::Mock<SerialFake> Serial4;
+    fakeit::Mock<SerialFake> Serial5;
+    fakeit::Mock<SerialFake> Serial6;
+    fakeit::Mock<SerialFake> Serial7;
+    fakeit::Mock<SerialFake> Serial8;
+    fakeit::Mock<SerialFake> Serial9;
 };
 
 struct ArduinoFakeInstances
 {
     FunctionFake* Function;
-    SerialFake* Serial;
     WireFake* Wire;
     StreamFake* Stream;
     ClientFake* Client;
     PrintFake* Print;
     SPIFake* SPI;
     EEPROMFake* EEPROM;
+    SerialFake* Serial;
+    SerialFake* Serial1;
+    SerialFake* Serial2;
+    SerialFake* Serial3;
+    SerialFake* Serial4;
+    SerialFake* Serial5;
+    SerialFake* Serial6;
+    SerialFake* Serial7;
+    SerialFake* Serial8;
+    SerialFake* Serial9;
 };
 
 class ArduinoFakeContext
@@ -113,12 +140,22 @@ class ArduinoFakeContext
 
         _ArduinoFakeInstanceGetter1(Print)
         _ArduinoFakeInstanceGetter1(Stream)
-        _ArduinoFakeInstanceGetter1(Serial)
         _ArduinoFakeInstanceGetter1(Wire)
         _ArduinoFakeInstanceGetter1(Client)
         _ArduinoFakeInstanceGetter1(Function)
         _ArduinoFakeInstanceGetter1(SPI)
         _ArduinoFakeInstanceGetter1(EEPROM)
+
+        _ArduinoFakeInstanceGetter11(Serial, Serial)
+        _ArduinoFakeInstanceGetter11(Serial, Serial1)
+        _ArduinoFakeInstanceGetter11(Serial, Serial2)
+        _ArduinoFakeInstanceGetter11(Serial, Serial3)
+        _ArduinoFakeInstanceGetter11(Serial, Serial4)
+        _ArduinoFakeInstanceGetter11(Serial, Serial5)
+        _ArduinoFakeInstanceGetter11(Serial, Serial6)
+        _ArduinoFakeInstanceGetter11(Serial, Serial7)
+        _ArduinoFakeInstanceGetter11(Serial, Serial8)
+        _ArduinoFakeInstanceGetter11(Serial, Serial9)
 
         _ArduinoFakeInstanceGetter2(Print, Print)
         _ArduinoFakeInstanceGetter2(Client, Client)
@@ -139,6 +176,7 @@ class ArduinoFakeContext
         }
 
         void setDefaults();
+        void setSerialDefaults(fakeit::Mock<SerialFake>&);
 
         void reset(void)
         {
@@ -146,24 +184,66 @@ class ArduinoFakeContext
 
             this->Mocks->Function.Reset();
             this->Mocks->Stream.Reset();
-            this->Mocks->Serial.Reset();
             this->Mocks->Wire.Reset();
             this->Mocks->Client.Reset();
             this->Mocks->Print.Reset();
             this->Mocks->SPI.Reset();
             this->Mocks->EEPROM.Reset();
-            Mapping[&::Serial] = this->Serial();
+            this->Mocks->Serial.Reset();
+            this->Mocks->Serial1.Reset();
+            this->Mocks->Serial2.Reset();
+            this->Mocks->Serial3.Reset();
+            this->Mocks->Serial4.Reset();
+            this->Mocks->Serial5.Reset();
+            this->Mocks->Serial6.Reset();
+            this->Mocks->Serial7.Reset();
+            this->Mocks->Serial8.Reset();
+            this->Mocks->Serial9.Reset();
             Mapping[&::Wire] = this->Wire();
             Mapping[&::SPI] = this->SPI();
             Mapping[&::EEPROM] = this->EEPROM();
+            Mapping[&::Serial] = this->Serial();
+            Mapping[&::Serial1] = this->Serial1();
+            Mapping[&::Serial2] = this->Serial2();
+            Mapping[&::Serial3] = this->Serial3();
+            Mapping[&::Serial4] = this->Serial4();
+            Mapping[&::Serial5] = this->Serial5();
+            Mapping[&::Serial6] = this->Serial6();
+            Mapping[&::Serial7] = this->Serial7();
+            Mapping[&::Serial8] = this->Serial8();
+            Mapping[&::Serial9] = this->Serial9();
         }
 };
 
 ArduinoFakeContext* getArduinoFakeContext();
 
+#if !defined(UBRR1H)
 #define Serial1 Serial
+#endif
+#if !defined(UBRR2H)
 #define Serial2 Serial
+#endif
+#if !defined(UBRR3H)
 #define Serial3 Serial
+#endif
+#if !defined(UBRR4H)
+#define Serial4 Serial
+#endif
+#if !defined(UBRR5H)
+#define Serial5 Serial
+#endif
+#if !defined(UBRR6H)
+#define Serial6 Serial
+#endif
+#if !defined(UBRR7H)
+#define Serial7 Serial
+#endif
+#if !defined(UBRR8H)
+#define Serial8 Serial
+#endif
+#if !defined(UBRR9H)
+#define Serial9 Serial
+#endif
 
 #endif //_ARDUINO_FAKE_H_
 // clang-format on

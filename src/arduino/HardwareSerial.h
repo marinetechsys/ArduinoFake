@@ -157,6 +157,30 @@ class HardwareSerial : public Stream
   extern HardwareSerial Serial3;
   #define HAVE_HWSERIAL3
 #endif
+#if defined(UBRR4H)
+  extern HardwareSerial Serial4;
+#define HAVE_HWSERIAL4
+#endif
+#if defined(UBRR5H)
+  extern HardwareSerial Serial5;
+#define HAVE_HWSERIAL5
+#endif
+#if defined(UBRR6H)
+  extern HardwareSerial Serial6;
+#define HAVE_HWSERIAL6
+#endif
+#if defined(UBRR7H)
+  extern HardwareSerial Serial7;
+#define HAVE_HWSERIAL7
+#endif
+#if defined(UBRR8H)
+  extern HardwareSerial Serial8;
+#define HAVE_HWSERIAL8
+#endif
+#if defined(UBRR9H)
+  extern HardwareSerial Serial9;
+#define HAVE_HWSERIAL9
+#endif
 
 extern void serialEventRun(void) __attribute__((weak));
 

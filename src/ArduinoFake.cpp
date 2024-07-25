@@ -59,18 +59,6 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned int, int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned long, int))).AlwaysReturn();
 
-    //fakeit::When(OverloadedMethod(Mocks->Stream, print, size_t(char))).AlwaysReturn();
-    //fakeit::When(OverloadedMethod(Mocks->Stream, print, size_t(int, int))).AlwaysReturn();
-    fakeit::When(OverloadedMethod(Mocks->Serial, print, size_t(char))).AlwaysReturn();
-    fakeit::When(OverloadedMethod(Mocks->Serial, print, size_t(int, int))).AlwaysReturn();
-    fakeit::When(Method(Mocks->Serial, available)).AlwaysReturn(1);
-    fakeit::When(OverloadedMethod(Mocks->Serial, print, size_t(char))).AlwaysReturn(1);
-    fakeit::When(Method(Mocks->Serial, end)).AlwaysReturn();
-    fakeit::When(Method(Mocks->Serial, flush)).AlwaysReturn();
-    fakeit::When(Method(Mocks->Serial, available)).AlwaysReturn(1);
-    fakeit::When(OverloadedMethod(Mocks->Serial, write, size_t(uint8_t))).AlwaysReturn(1);
-    fakeit::When(OverloadedMethod(Mocks->Serial, begin, void(unsigned long))).AlwaysReturn();
-
     fakeit::When(OverloadedMethod(Mocks->SPI, begin, void(void))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->SPI, end, void(void))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->SPI, beginTransaction, void(SPISettings)).Using(settings)).AlwaysReturn();
@@ -115,4 +103,28 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(Method(Mocks->EEPROM, write)).AlwaysReturn();
     fakeit::When(Method(Mocks->EEPROM, update)).AlwaysReturn();
     fakeit::When(Method(Mocks->EEPROM, length)).AlwaysReturn(1);
+
+    setSerialDefaults(Mocks->Serial);
+    setSerialDefaults(Mocks->Serial1);
+    setSerialDefaults(Mocks->Serial2);
+    setSerialDefaults(Mocks->Serial3);
+    setSerialDefaults(Mocks->Serial4);
+    setSerialDefaults(Mocks->Serial5);
+    setSerialDefaults(Mocks->Serial6);
+    setSerialDefaults(Mocks->Serial7);
+    setSerialDefaults(Mocks->Serial8);
+    setSerialDefaults(Mocks->Serial9);
+}
+
+void ArduinoFakeContext::setSerialDefaults(fakeit::Mock<SerialFake>& serial)
+{
+    fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(int, int))).AlwaysReturn();
+    fakeit::When(Method(serial, available)).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn(1);
+    fakeit::When(Method(serial, end)).AlwaysReturn();
+    fakeit::When(Method(serial, flush)).AlwaysReturn();
+    fakeit::When(Method(serial, available)).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(serial, write, size_t(uint8_t))).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(serial, begin, void(unsigned long))).AlwaysReturn();
 }
