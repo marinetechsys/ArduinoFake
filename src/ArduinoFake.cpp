@@ -1,10 +1,12 @@
 #include "ArduinoFake.h"
+#include <chrono>
 
-ArduinoFakeContext* arduinoFakeContext;
+ArduinoFakeContext *arduinoFakeContext;
 
-ArduinoFakeContext* getArduinoFakeContext()
+ArduinoFakeContext *getArduinoFakeContext()
 {
-    if (!arduinoFakeContext) {
+    if (!arduinoFakeContext)
+    {
         arduinoFakeContext = new ArduinoFakeContext();
     }
 
@@ -16,8 +18,8 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(Method(Mocks->Function, pinMode)).AlwaysReturn();
     fakeit::When(Method(Mocks->Function, attachInterrupt)).AlwaysReturn();
     fakeit::When(Method(Mocks->Function, detachInterrupt)).AlwaysReturn();
-    fakeit::When(Method(Mocks->Function, micros)).AlwaysReturn(100000);
-    fakeit::When(Method(Mocks->Function, millis)).AlwaysReturn(200000);
+    fakeit::When(Method(Mocks->Function, micros)).AlwaysReturn();
+    fakeit::When(Method(Mocks->Function, millis)).AlwaysReturn();
     fakeit::When(Method(Mocks->Function, digitalWrite)).AlwaysReturn();
     fakeit::When(Method(Mocks->Function, digitalRead)).AlwaysReturn(LOW);
     fakeit::When(Method(Mocks->Function, analogWrite)).AlwaysReturn();
@@ -58,13 +60,15 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(double, int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned int, int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Print, vprintf, size_t(const char*, va_list))).AlwaysReturn(0);
 
     fakeit::When(OverloadedMethod(Mocks->SPI, begin, void(void))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->SPI, end, void(void))).AlwaysReturn();
-    fakeit::When(OverloadedMethod(Mocks->SPI, beginTransaction, void(SPISettings)).Using(settings)).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->SPI, beginTransaction, void(SPISettings))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->SPI, endTransaction, void(void))).AlwaysReturn();
-    fakeit::When(OverloadedMethod(Mocks->SPI, transfer, uint8_t(uint8_t)).Using(data)).AlwaysReturn();
-    fakeit::When(OverloadedMethod(Mocks->SPI, transfer, void(void*, size_t)).Using(ptr, sizeof(buffer))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->SPI, transfer, uint8_t(uint8_t))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->SPI, transfer, void(void *, size_t)).Using(ptr, sizeof(buffer)))
+        .AlwaysReturn();
 
     /*
     fakeit::When(OverloadedMethod(Mocks->Stream, print, size_t(char))).AlwaysReturn();
@@ -93,31 +97,37 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(OverloadedMethod(Mocks->Wire, print, size_t(char))).AlwaysReturn(1);
     fakeit::When(OverloadedMethod(Mocks->Wire, begin, void(void))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Wire, beginTransmission, void(uint8_t))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, beginTransmission, void(int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Wire, write, size_t(uint8_t))).AlwaysReturn(true);
     fakeit::When(OverloadedMethod(Mocks->Wire, endTransmission, uint8_t(bool))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, endTransmission, uint8_t(void))).AlwaysReturn(0);
     fakeit::When(OverloadedMethod(Mocks->Wire, requestFrom, uint8_t(uint8_t, uint8_t))).AlwaysReturn(0);
-    fakeit::When(OverloadedMethod(Mocks->Wire, available, int(void))).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(Mocks->Wire, available, int(void))).AlwaysReturn(0);
     fakeit::When(OverloadedMethod(Mocks->Wire, read, int(void))).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(Mocks->Wire, setClock, void(uint32_t))).AlwaysReturn();
 
     fakeit::When(Method(Mocks->EEPROM, read)).AlwaysReturn(255);
     fakeit::When(Method(Mocks->EEPROM, write)).AlwaysReturn();
     fakeit::When(Method(Mocks->EEPROM, update)).AlwaysReturn();
     fakeit::When(Method(Mocks->EEPROM, length)).AlwaysReturn(1);
 
-    setSerialDefaults(Mocks->Serial);
-    setSerialDefaults(Mocks->Serial1);
-    setSerialDefaults(Mocks->Serial2);
-    setSerialDefaults(Mocks->Serial3);
-    setSerialDefaults(Mocks->Serial4);
-    setSerialDefaults(Mocks->Serial5);
-    setSerialDefaults(Mocks->Serial6);
-    setSerialDefaults(Mocks->Serial7);
-    setSerialDefaults(Mocks->Serial8);
-    setSerialDefaults(Mocks->Serial9);
+    setSerialDefaults(0, Mocks->Serial);
+    setSerialDefaults(1, Mocks->Serial1);
+    setSerialDefaults(2, Mocks->Serial2);
+    setSerialDefaults(3, Mocks->Serial3);
+    setSerialDefaults(4, Mocks->Serial4);
+    setSerialDefaults(5, Mocks->Serial5);
+    setSerialDefaults(6, Mocks->Serial6);
+    setSerialDefaults(7, Mocks->Serial7);
+    setSerialDefaults(8, Mocks->Serial8);
+    setSerialDefaults(9, Mocks->Serial9);
 }
 
-void ArduinoFakeContext::setSerialDefaults(fakeit::Mock<SerialFake>& serial)
+void ArduinoFakeContext::setSerialDefaults(uint8_t id, fakeit::Mock<SerialFake> &serial)
 {
+    fakeit::When(OverloadedMethod(serial, id, uint8_t (void))).AlwaysReturn(id);
+    fakeit::When(OverloadedMethod(serial, begin, void(unsigned long))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, begin, void(unsigned long, uint8_t))).AlwaysReturn();
     fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn();
     fakeit::When(OverloadedMethod(serial, print, size_t(int, int))).AlwaysReturn();
     fakeit::When(Method(serial, available)).AlwaysReturn(1);
@@ -126,5 +136,52 @@ void ArduinoFakeContext::setSerialDefaults(fakeit::Mock<SerialFake>& serial)
     fakeit::When(Method(serial, flush)).AlwaysReturn();
     fakeit::When(Method(serial, available)).AlwaysReturn(1);
     fakeit::When(OverloadedMethod(serial, write, size_t(uint8_t))).AlwaysReturn(1);
-    fakeit::When(OverloadedMethod(serial, begin, void(unsigned long))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, write, size_t(const uint8_t*, size_t)))
+        .AlwaysDo(
+            [id](const uint8_t* data, size_t len) {
+                /*
+                std::cout << "[" << int(id) << "] ";
+                for (size_t i=0; i<len; i++)
+                {
+                    std::cout << "<" << std::setw(2) << std::hex << (unsigned int)data[i] << ">";
+                }
+                */
+                return len;
+            });
+
+    fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(const char *)))
+        .AlwaysDo(
+            [id](const char * str) {
+                std::cout << "[" << int(id) << "] ";
+                std::cout << str;
+                return 0;
+            });
+    fakeit::When(OverloadedMethod(serial, print, size_t(unsigned char, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(int, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(double, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(unsigned int, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, print, size_t(unsigned long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t())).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(char))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(const char *)))
+        .AlwaysDo(
+            [id](const char * str) {
+                std::cout << "[" << int(id) << "] ";
+                std::cout << str << std::endl;
+                return 0;
+            });
+    fakeit::When(OverloadedMethod(serial, println, size_t(unsigned char, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(int, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(double, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(unsigned int, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(unsigned long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, vprintf, size_t(const char*, va_list)))
+        .AlwaysDo(
+            [id](const char * fmt, va_list args) {
+                std::cout << "[" << int(id) << "] ";
+                return ::vfprintf(stdout, fmt, args);
+            });
 }

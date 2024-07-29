@@ -1,5 +1,6 @@
 #include "ArduinoFake.h"
 #include "PrintFake.h"
+#include <cstdarg>
 
 size_t Print::write(const uint8_t *buffer, size_t size)
 {
@@ -16,7 +17,7 @@ size_t Print::print(const String &s)
     return ArduinoFakeInstance(Print, this)->print(s);
 }
 
-size_t Print::print(const char str[])
+size_t Print::print(const char *str)
 {
     return ArduinoFakeInstance(Print, this)->print(str);
 }
@@ -81,7 +82,7 @@ size_t Print::println(const String &s)
     return ArduinoFakeInstance(Print, this)->println(s);
 }
 
-size_t Print::println(const char c[])
+size_t Print::println(const char *c)
 {
     return ArduinoFakeInstance(Print, this)->println(c);
 }
@@ -126,8 +127,16 @@ size_t Print::println(const Printable& x)
     return ArduinoFakeInstance(Print, this)->println(x);
 }
 
+size_t Print::vprintf(const char* fmt, va_list ap)
+{
+    return ArduinoFakeInstance(Print, this)->vprintf(fmt, ap);
+}
+
 size_t Print::printf(const char* fmt, ...)
 {
-    // TODO: unsure how to mock this.
-    return 0;
+    va_list args;
+    va_start(args, fmt);
+    size_t result = vprintf(fmt, args);
+    va_end(args);
+    return result;
 }

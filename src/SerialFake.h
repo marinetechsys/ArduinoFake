@@ -55,6 +55,8 @@ class SerialFakeProxy : public StreamFakeProxy, public Serial_
 #else
 struct SerialFake : public StreamFake
 {
+    virtual uint8_t id() = 0;
+
     virtual void begin(unsigned long) = 0;
     virtual void begin(unsigned long, uint8_t) = 0;
     virtual void end(void) = 0;
@@ -66,8 +68,6 @@ struct SerialFake : public StreamFake
     virtual void flush(void) = 0;
     virtual size_t write(uint8_t) = 0;
     virtual size_t write(const uint8_t*, size_t) = 0;
-
-    //operator bool();
 
     virtual int32_t readBreak() = 0;
 

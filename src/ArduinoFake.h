@@ -176,7 +176,7 @@ class ArduinoFakeContext
         }
 
         void setDefaults();
-        void setSerialDefaults(fakeit::Mock<SerialFake>&);
+        void setSerialDefaults(uint8_t, fakeit::Mock<SerialFake>&);
 
         void reset(void)
         {

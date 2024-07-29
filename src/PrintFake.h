@@ -10,7 +10,7 @@ struct PrintFake
 
     virtual size_t print(const __FlashStringHelper *) = 0;
     virtual size_t print(const String &) = 0;
-    virtual size_t print(const char[]) = 0;
+    virtual size_t print(const char*) = 0;
     virtual size_t print(char) = 0;
     virtual size_t print(unsigned char, int = DEC) = 0;
     virtual size_t print(int, int = DEC) = 0;
@@ -22,7 +22,7 @@ struct PrintFake
 
     virtual size_t println(const __FlashStringHelper *) = 0;
     virtual size_t println(const String &s) = 0;
-    virtual size_t println(const char[]) = 0;
+    virtual size_t println(const char*) = 0;
     virtual size_t println(char) = 0;
     virtual size_t println(unsigned char, int = DEC) = 0;
     virtual size_t println(int, int = DEC) = 0;
@@ -32,7 +32,7 @@ struct PrintFake
     virtual size_t println(double, int = 2) = 0;
     virtual size_t println(const Printable&) = 0;
     virtual size_t println(void) = 0;
-    virtual size_t printf(const char* fmt, ...) = 0;
+    virtual size_t vprintf(const char *format, va_list ap) = 0;
 };
 
 class PrintFakeProxy : public Print

@@ -92,6 +92,11 @@ int32_t Serial_::readBreak()
 Serial_ Serial = SerialFakeProxy(ArduinoFakeInstance(Serial));
 #else // USBCON
 
+uint8_t HardwareSerial::id()
+{
+    return ArduinoFakeInstance(Serial, this)->id();
+}
+
 void HardwareSerial::begin(unsigned long baud_count)
 {
     ArduinoFakeInstance(Serial, this)->begin(baud_count);
