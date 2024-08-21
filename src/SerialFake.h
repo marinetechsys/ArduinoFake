@@ -1,5 +1,5 @@
-#ifndef _SERIALFAKE_H_
-#define _SERIALFAKE_H_
+#ifndef SERIALFAKE_H_
+#define SERIALFAKE_H_
 
 #include "StreamFake.h"
 #include "arduino/USBAPI.h"
@@ -105,4 +105,4 @@ class SerialFakeProxy : public StreamFakeProxy, public HardwareSerial
 };
 #endif
 
-#endif //_SERIALFAKE_H_
+#endif // SERIALFAKE_H_
