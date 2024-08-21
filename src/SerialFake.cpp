@@ -41,7 +41,12 @@ int Serial_::availableForWrite(void)
 
 void Serial_::flush(void)
 {
-    ArduinoFakeInstance(Serial, this)->flush();
+    ArduinoFakeInstance(Serial, this)->clear();
+}
+
+void Serial_::flush(void)
+{
+    ArduinoFakeInstance(Serial, this)->clear();
 }
 
 size_t Serial_::write(uint8_t c)
@@ -130,6 +135,11 @@ int HardwareSerial::read(void)
 int HardwareSerial::availableForWrite(void)
 {
     return ArduinoFakeInstance(Serial, this)->availableForWrite();
+}
+
+void HardwareSerial::clear(void)
+{
+    ArduinoFakeInstance(Serial, this)->clear();
 }
 
 void HardwareSerial::flush(void)
