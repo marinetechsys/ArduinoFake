@@ -39,14 +39,14 @@ int Serial_::availableForWrite(void)
     return ArduinoFakeInstance(Serial, this)->availableForWrite();
 }
 
-void Serial_::flush(void)
+void Serial_::clear(void)
 {
     ArduinoFakeInstance(Serial, this)->clear();
 }
 
 void Serial_::flush(void)
 {
-    ArduinoFakeInstance(Serial, this)->clear();
+    ArduinoFakeInstance(Serial, this)->flush();
 }
 
 size_t Serial_::write(uint8_t c)
