@@ -1,5 +1,5 @@
-#ifndef _SERIALFAKE_H_
-#define _SERIALFAKE_H_
+#ifndef SERIALFAKE_H_
+#define SERIALFAKE_H_
 
 #include "StreamFake.h"
 #include "arduino/USBAPI.h"
@@ -17,6 +17,7 @@ struct SerialFake : public StreamFake
     virtual int peek(void) = 0;
     virtual int read(void) = 0;
     virtual int availableForWrite(void) = 0;
+    virtual void clear(void) = 0;
     virtual void flush(void) = 0;
     virtual size_t write(uint8_t) = 0;
     virtual size_t write(const uint8_t*, size_t) = 0;
@@ -65,6 +66,7 @@ struct SerialFake : public StreamFake
     virtual int peek(void) = 0;
     virtual int read(void) = 0;
     virtual int availableForWrite(void) = 0;
+    virtual void clear(void) = 0;
     virtual void flush(void) = 0;
     virtual size_t write(uint8_t) = 0;
     virtual size_t write(const uint8_t*, size_t) = 0;
@@ -103,4 +105,4 @@ class SerialFakeProxy : public StreamFakeProxy, public HardwareSerial
 };
 #endif
 
-#endif //_SERIALFAKE_H_
+#endif // SERIALFAKE_H_

@@ -1,12 +1,12 @@
-#ifndef _ARDUINO_FAKE_H_
-#define _ARDUINO_FAKE_H_
+#ifndef ARDUINO_FAKE_H_
+#define ARDUINO_FAKE_H_
 // clang-format off
 
 #if !defined(UBRRH) && !defined(UBRR0H) && !defined(USBCON)
     #define USBCON
 #endif
 
-#include <unordered_map>  
+#include <unordered_map>
 #include <cstring>
 #include <cstdint>
 #include <stdexcept>
@@ -245,5 +245,5 @@ ArduinoFakeContext* getArduinoFakeContext();
 #define Serial9 Serial
 #endif
 
-#endif //_ARDUINO_FAKE_H_
+#endif // ARDUINO_FAKE_H_
 // clang-format on
