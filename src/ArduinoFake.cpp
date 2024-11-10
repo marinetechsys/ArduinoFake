@@ -60,6 +60,7 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(double, int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned int, int))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(unsigned long, int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Print, println, size_t(const String &s))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Print, vprintf, size_t(const char*, va_list))).AlwaysReturn(0);
 
     fakeit::When(OverloadedMethod(Mocks->SPI, begin, void(void))).AlwaysReturn();
@@ -130,8 +131,10 @@ void ArduinoFakeContext::setSerialDefaults(uint8_t id, fakeit::Mock<SerialFake> 
     fakeit::When(OverloadedMethod(serial, begin, void(unsigned long, uint8_t))).AlwaysReturn();
     fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn();
     fakeit::When(OverloadedMethod(serial, print, size_t(int, int))).AlwaysReturn();
-    fakeit::When(Method(serial, available)).AlwaysReturn(0);
     fakeit::When(OverloadedMethod(serial, print, size_t(char))).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(serial, println, size_t(const char *))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(serial, println, size_t(const String &s))).AlwaysReturn();
+    fakeit::When(Method(serial, available)).AlwaysReturn(0);
     fakeit::When(Method(serial, end)).AlwaysReturn();
     fakeit::When(Method(serial, read)).AlwaysReturn(0);
     fakeit::When(Method(serial, clear)).AlwaysReturn();
