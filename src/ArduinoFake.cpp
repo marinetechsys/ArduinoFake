@@ -136,7 +136,6 @@ void ArduinoFakeContext::setSerialDefaults(uint8_t id, fakeit::Mock<SerialFake> 
     fakeit::When(Method(serial, read)).AlwaysReturn(0);
     fakeit::When(Method(serial, clear)).AlwaysReturn();
     fakeit::When(Method(serial, flush)).AlwaysReturn();
-    fakeit::When(Method(serial, available)).AlwaysReturn(1);
     fakeit::When(OverloadedMethod(serial, write, size_t(uint8_t))).AlwaysReturn(1);
     fakeit::When(OverloadedMethod(serial, write, size_t(const uint8_t*, size_t)))
         .AlwaysDo(
