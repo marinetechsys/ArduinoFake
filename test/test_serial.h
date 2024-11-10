@@ -52,6 +52,7 @@ namespace SerialTest
     void test_basics(void)
     {
         When(Method(ArduinoFake(Serial), end)).AlwaysReturn();
+        When(Method(ArduinoFake(Serial), clear)).AlwaysReturn();
         When(Method(ArduinoFake(Serial), flush)).AlwaysReturn();
         When(Method(ArduinoFake(Serial), available)).Return(0, 1);
         When(OverloadedMethod(ArduinoFake(Serial), write, size_t(uint8_t))).Return(1);
@@ -71,6 +72,7 @@ namespace SerialTest
 
         Verify(OverloadedMethod(ArduinoFake(Serial), write, size_t(uint8_t)).Using(5)).Once();
 
+        Verify(Method(ArduinoFake(Serial), clear)).Once();
         Verify(Method(ArduinoFake(Serial), flush)).Once();
         Verify(Method(ArduinoFake(Serial), end)).Once();
     }
