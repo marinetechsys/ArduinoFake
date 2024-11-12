@@ -124,8 +124,6 @@ typedef unsigned int word;
 
 #define bit(b) (1UL << (b))
 
-typedef bool boolean;
-
 void init(void);
 void initVariant(void);
 
