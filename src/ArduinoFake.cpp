@@ -71,6 +71,30 @@ void ArduinoFakeContext::setDefaults()
     fakeit::When(OverloadedMethod(Mocks->SPI, transfer, void(void *, size_t)).Using(ptr, sizeof(buffer)))
         .AlwaysReturn();
 
+    // I2C/Wire reasonable defaults to keep sensor drivers inert in tests
+    fakeit::When(OverloadedMethod(Mocks->Wire, begin, void(void))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, begin, void(uint8_t))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, begin, void(int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, end, void(void))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, setClock, void(uint32_t))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, setWireTimeout, void(uint32_t,bool))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, getWireTimeoutFlag, bool(void))).AlwaysReturn(false);
+    fakeit::When(OverloadedMethod(Mocks->Wire, clearWireTimeoutFlag, void(void))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, beginTransmission, void(uint8_t))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, beginTransmission, void(int))).AlwaysReturn();
+    fakeit::When(OverloadedMethod(Mocks->Wire, endTransmission, uint8_t(void))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, endTransmission, uint8_t(bool))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, requestFrom, uint8_t(uint8_t,uint8_t))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, requestFrom, uint8_t(uint8_t,uint8_t,uint8_t))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, requestFrom, uint8_t(uint8_t,uint8_t,uint32_t,uint8_t,uint8_t))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, write, size_t(uint8_t))).AlwaysReturn(1);
+    fakeit::When(OverloadedMethod(Mocks->Wire, write, size_t(const uint8_t*, size_t))).AlwaysDo(
+        [](const uint8_t*, size_t len){ return len; });
+    fakeit::When(OverloadedMethod(Mocks->Wire, available, int(void))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, read, int(void))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, peek, int(void))).AlwaysReturn(0);
+    fakeit::When(OverloadedMethod(Mocks->Wire, flush, void(void))).AlwaysReturn();
+
     /*
     fakeit::When(OverloadedMethod(Mocks->Stream, print, size_t(char))).AlwaysReturn();
     fakeit::When(OverloadedMethod(Mocks->Stream, print, size_t(int, int))).AlwaysReturn();

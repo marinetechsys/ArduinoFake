@@ -2,6 +2,7 @@
 #define _FUNCTIONFAKE_H_
 
 #include "fakeit.hpp"
+#include <time.h>
 
 struct FunctionFake
 {
@@ -47,6 +48,15 @@ struct FunctionFake
     virtual long map(long, long, long, long, long) = 0;
 
     virtual void yield() = 0;
+
+    // Time-related helpers used in tests
+    virtual time_t now(void) = 0;
+    virtual int year(time_t) = 0;
+    virtual int month(time_t) = 0;
+    virtual int day(time_t) = 0;
+    virtual int hour(time_t) = 0;
+    virtual int minute(time_t) = 0;
+    virtual int second(time_t) = 0;
 };
 
 #endif // _FUNCTIONFAKE_H_
